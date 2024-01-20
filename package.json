@@ -4,14 +4,16 @@
     "prepare": "nitropack prepare",
     "dev": "nitropack dev",
     "build": "nitropack build",
-    "preview": "node .output/server/index.mjs"
+    "preview": "node .output/server/index.mjs",
+    "generate:db": "drizzle-kit generate:pg",
+    "push:db": "drizzle-kit push:pg"
   },
   "dependencies": {
-    "@vercel/postgres": "^0.5.1",
     "drizzle-orm": "^0.29.3",
     "nitropack": "latest"
   },
   "devDependencies": {
+    "@vercel/postgres": "^0.5.1",
     "drizzle-kit": "^0.20.13"
   }
 }
