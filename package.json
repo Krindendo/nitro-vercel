@@ -7,6 +7,11 @@
     "preview": "node .output/server/index.mjs"
   },
   "dependencies": {
+    "@vercel/postgres": "^0.5.1",
+    "drizzle-orm": "^0.29.3",
     "nitropack": "latest"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.20.13"
   }
 }
