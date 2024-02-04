@@ -7,5 +7,6 @@ export const db = drizzle(sql);
 
 export default eventHandler(async () => {
   const result: User[] = await db.select().from(users);
-  return { data: result };
+
+  return result;
 });

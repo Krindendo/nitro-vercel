@@ -7,10 +7,19 @@ import { eq } from "drizzle-orm";
 export const db = drizzle(sql);
 
 export default eventHandler(async (event) => {
-  const id = getRouterParam(event, "id");
+  const userId = parseInt(getRouterParam(event, "id"));
+
+  if (!Number.isInteger(userId)) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: "ID should be an integer",
+    });
+  }
+
   const result: User[] = await db
     .delete(users)
-    .where(eq(users.id, Number(id)))
+    .where(eq(users.id, userId))
     .returning();
-  return { data: result[0] };
+
+  return result[0];
 });

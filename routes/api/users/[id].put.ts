@@ -7,12 +7,22 @@ import { eq } from "drizzle-orm";
 export const db = drizzle(sql);
 
 export default eventHandler(async (event) => {
-  const id = getRouterParam(event, "id");
+  const userId = parseInt(getRouterParam(event, "id"));
+
+  if (!Number.isInteger(userId)) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: "ID should be an integer",
+    });
+  }
+
   const { fullName, email } = await readBody<NewUser>(event);
+
   const updatedUser = await db
     .update(users)
     .set({ fullName, email })
-    .where(eq(users.id, Number(id)))
+    .where(eq(users.id, userId))
     .returning();
-  return { data: updatedUser[0] };
+
+  return updatedUser[0];
 });

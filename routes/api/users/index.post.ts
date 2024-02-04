@@ -7,6 +7,8 @@ export const db = drizzle(sql);
 
 export default eventHandler(async (event) => {
   const body = await readBody<NewUser>(event);
+
   const newUser = await db.insert(users).values(body).returning();
-  return { data: newUser[0] };
+
+  return newUser[0];
 });
